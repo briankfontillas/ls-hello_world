@@ -2,14 +2,14 @@ doctype html
 
 html 
   head 
-    title This is a page title
+    title これはページのタイトルです
     meta(charset="UTF-8")
     link(rel="stylesheet" href="/stylesheets/application.css")
   body 
     nav 
       ul 
         li
-          a.current(href="/english")
+          a(href="/english")
             img.flag(src="/images/flag-of-United-States-of-America.png"
                      alt="US Flag"
                      title="Go to US English site")
@@ -24,12 +24,12 @@ html
                      alt="Застава Србије"
                      title="Идите на српски сајт")
         li
-          a(href="/japanese")
+          a.current(href="/japanese")
             img.flag(src="/images/flag-of-japan.png"
                      alt="日本の国旗"
                      title="日本語サイトへ")
     header 
-      h1 Hello World!
+      h1 こんにちは世界
     main
-      p I'm going to be a software engineer soon!
+      p もうすぐソフトウェアエンジニアになります
       img(src="/images/earth.jpg" alt="The Earth" title="The Earth")
