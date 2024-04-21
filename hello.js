@@ -26,6 +26,13 @@ app.use(morgan("common"));
 //   console.log(`${timeStamp} ${req.method} ${req.originalUrl} ${res.statusCode}`);
 // };
 
+//every view template has access to the app.locals object. Here we are simply adding a new method to this object so all of our view templates have access to it
+//This function is meant to define a variable that will represent a class for our views.
+//we will manually put in our path, then the second argument currentPath is typically the request.path
+app.locals.currentPathClass = (path, currentPath) => {
+  return path === currentPath ? "current" : "";
+}
+
 //This is a "route". This one specifically handles HTTP GET requests for the path "/".
 //The callback is sometimes called a route controller or route handler that "get" calls when it recieves
 //an HTTP request. Here, we are using res (response) .send to issue a simple text response
@@ -36,22 +43,34 @@ app.get('/', (req, res) => {
 });
 
 app.get('/english', (req, res) => {
-  res.render('hello-world-english');
+  res.render('hello-world-english', {
+    currentPath: req.path, //We are setting a variable out template will have access to which is "currentPath" and the value will be our request path
+    language: "en-US"
+  });
   // writeLog(req, res);
 });
 
 app.get('/french', (req, res) => {
-  res.render('hello-world-french');
+  res.render('hello-world-french', {
+    currentPath: req.path,
+    language: "fr=FR"
+  });
   // writeLog(req, res);
 });
 
 app.get('/serbian', (req, res) => {
-  res.render('hello-world-serbian');
+  res.render('hello-world-serbian', {
+    currentPath: req.path,
+    language: "sr-Cryl-rs"
+  });
   // writeLog(req, res);
 });
 
 app.get('/japanese', (req, res) => {
-  res.render('hello-world-japanese');
+  res.render('hello-world-japanese', {
+    currentPath: req.path,
+    language: "ja-jp"
+  });
   // writeLog(req, res);
 });
 //This method takes a port number. The second arg "localhost" is provided to only listen to
