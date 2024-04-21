@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
+//This array is added as variables to our view. We can iterate upon arrays in pug. So we can add elements that are similar but include different values
 const COUNTRY_DATA = [
   {
     path: "/english",
