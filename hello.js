@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 
+
 //tells express to look for view templates in the views directory
 app.set("views", "./views");
 //tells express to use the Pug view engine. There are many view engines
