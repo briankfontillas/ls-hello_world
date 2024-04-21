@@ -1,6 +1,32 @@
 const express = require('express');
 const morgan = require('morgan');
 const app = express();
+const COUNTRY_DATA = [
+  {
+    path: "/english",
+    flag: "flag-of-United-States-of-America.png",
+    alt: "US Flag",
+    title: "Go to Us English site"
+  },
+  {
+    path: "/french",
+    flag: "flag-of-France.png",
+    alt: "Drapeau de la france",
+    title: "Aller sur le site français"
+  },
+  {
+    path: "/serbian",
+    flag: "flag-of-Serbia.png",
+    alt: "Застава Србије",
+    title: "Идите на српски сајт"
+  },
+  {
+    path: "/japanese",
+    flag: "flag-of-Japan.png",
+    alt: "日本の国旗",
+    title: "日本語サイトへ"
+  }
+];
 
 
 //tells express to look for view templates in the views directory
@@ -45,7 +71,8 @@ app.get('/', (req, res) => {
 app.get('/english', (req, res) => {
   res.render('hello-world-english', {
     currentPath: req.path, //We are setting a variable out template will have access to which is "currentPath" and the value will be our request path
-    language: "en-US"
+    language: "en-US",
+    countries: COUNTRY_DATA
   });
   // writeLog(req, res);
 });
@@ -53,7 +80,8 @@ app.get('/english', (req, res) => {
 app.get('/french', (req, res) => {
   res.render('hello-world-french', {
     currentPath: req.path,
-    language: "fr=FR"
+    language: "fr=FR",
+    countries: COUNTRY_DATA
   });
   // writeLog(req, res);
 });
@@ -61,7 +89,8 @@ app.get('/french', (req, res) => {
 app.get('/serbian', (req, res) => {
   res.render('hello-world-serbian', {
     currentPath: req.path,
-    language: "sr-Cryl-rs"
+    language: "sr-Cryl-rs",
+    countries: COUNTRY_DATA
   });
   // writeLog(req, res);
 });
@@ -69,7 +98,8 @@ app.get('/serbian', (req, res) => {
 app.get('/japanese', (req, res) => {
   res.render('hello-world-japanese', {
     currentPath: req.path,
-    language: "ja-jp"
+    language: "ja-jp",
+    countries: COUNTRY_DATA
   });
   // writeLog(req, res);
 });
