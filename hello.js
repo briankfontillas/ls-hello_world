@@ -28,6 +28,12 @@ const COUNTRY_DATA = [
     title: "日本語サイトへ"
   }
 ];
+const LANGUAGE_CODES = {
+  english: "en-US",
+  french: "fr-FR",
+  serbian: "sr-Cryl-rs",
+  japanese: "ja-JP",
+};
 
 
 //tells express to look for view templates in the views directory
@@ -69,41 +75,25 @@ app.get('/', (req, res) => {
   res.redirect('/english');
 });
 
-app.get('/english', (req, res) => {
-  res.render('hello-world-english', {
-    currentPath: req.path, //We are setting a variable out template will have access to which is "currentPath" and the value will be our request path
-    language: "en-US",
-    countries: COUNTRY_DATA
-  });
-  // writeLog(req, res);
+app.get('/:language', (req, res, next) => {
+  const language = req.params.language;
+  const languageCode = LANGUAGE_CODES[language];
+  if (!languageCode) {
+    next(new Error(`Language not supported: ${language}`));
+  } else {
+    res.render(`hello-world-${language}`, {
+      currentPath: req.path, //We are setting a variable out template will have access to which is "currentPath" and the value will be our request path
+      language: languageCode,
+      countries: COUNTRY_DATA
+    });
+  }
 });
 
-app.get('/french', (req, res) => {
-  res.render('hello-world-french', {
-    currentPath: req.path,
-    language: "fr=FR",
-    countries: COUNTRY_DATA
-  });
-  // writeLog(req, res);
+app.use((err, req, res, _next) => {
+  console.log(err);
+  res.status(404).send(err.message);
 });
 
-app.get('/serbian', (req, res) => {
-  res.render('hello-world-serbian', {
-    currentPath: req.path,
-    language: "sr-Cryl-rs",
-    countries: COUNTRY_DATA
-  });
-  // writeLog(req, res);
-});
-
-app.get('/japanese', (req, res) => {
-  res.render('hello-world-japanese', {
-    currentPath: req.path,
-    language: "ja-jp",
-    countries: COUNTRY_DATA
-  });
-  // writeLog(req, res);
-});
 //This method takes a port number. The second arg "localhost" is provided to only listen to
 //connections from localhost (the local computer). If you omit the second argument, the app will
 //accept connections from anywhere on the internet that can reach our system. The callback
